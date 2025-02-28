@@ -59,11 +59,31 @@ features:
   ```
   - The getudev flag tells it to generate and install udev rules into your OS, so that your Adalm1000 is detected without problems. It is recommended to run it with that the first time you open it.
 
+:::: details If you're debugging udev rules and crashes upon device plug, see this
+Delete Existing rule
+```bash
+sudo rm -rf /etc/udev/rules.d/53-adi-m1k-usb.rules
+```
+
+> [!WARNING]
+> Remember to unplug your device.
+
+Run the AppImage with --getudev flag again
+```bash
+./Pixelpulse2*.AppImage --getudev
+```
+
+After it opens, you can reconnect your device.
+::::
+
 > [!TIP]
 > To Install it systemwide, [install a tool called appman through AM](https://github.com/ivan-hc/AM) and run `appman install path/to/Pixelpulse2*.AppImage`
 
 ### Known Issues:
-1. The app is known to crash after being open for some time
+1. The app is known to crash if you plug in the device without configuring udev rules
+   - Do that, and ensure the device is unplugged.
+   - reload 
+2. The app is known to crash after being open for some time
   - This can be replicated on some distros by connecting a device and letting it run for a while
     - This happens on:
       - OpenSUSE Tumbleweed(Jan 2025, x86_64 build)
