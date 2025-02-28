@@ -3,6 +3,12 @@ set -e
 
 CURRENTDIR="$(dirname "$(readlink -f "$0")")"
 
+if [ ! -f "/etc/udev/rules.d/53-adi-m1k-usb.rules" ]; then
+	echo "/etc/udev/rules.d/53-adi-m1k-usb.rules file not found!"
+	echo "Ignore if udev is not supported by your system"
+	echo "To fix this, rerun this command with --getudev"
+fi
+
 if [ "$1" = '--getudev' ]; then
 	if [ -f "/etc/udev/rules.d/53-adi-m1k-usb.rules" ]; then
 		echo "udev rule already found, skipping Rule Creation"
