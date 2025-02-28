@@ -40,6 +40,22 @@ features:
 - [@probonopd](https://github.com/probonopd) for [linuxdeployqt](https://github.com/probonopd/linuxdeployqt)
 
 ### Setup Instructions
+<!--#### Automatic Method 😎
+- [Install Soar](https://soar.qaidvoid.dev/installation)
+  ```bash
+  wget -qO- https://soar.qaidvoid.dev/install.sh | sh
+  ```
+  or
+  ```bash
+  curl -fsSL https://soar.qaidvoid.dev/install.sh | sh
+  ```
+  - Run the App
+    ```bash
+    soar run pixelpulse2
+    ```
+-->
+#### Manual Method 💪
+::::: details Show Manual Installation Method
 - Remove Previous versions of the AppImage(Optional, replace with correct path as needed)
   ```bash
   rm Downloads/Pixelpulse2*.AppImage
@@ -75,10 +91,7 @@ Run the AppImage with --getudev flag again
 
 After it opens, you can reconnect your device.
 ::::
-
-> [!TIP]
-> To Install it systemwide, [install a tool called appman through AM](https://github.com/ivan-hc/AM) and run `appman install path/to/Pixelpulse2*.AppImage`
-
+:::::
 ### Known Issues:
 1. The app is known to crash if you plug in the device without configuring udev rules
    - Do that, and ensure the device is unplugged.
