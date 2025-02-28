@@ -29,4 +29,4 @@ if [ "$1" = '--getudev' ]; then
 fi
 
 # Continue with application execution
-exec "$CURRENTDIR"/bin/pixelpulse2T
+exec "$CURRENTDIR"/bin/pixelpulse2
