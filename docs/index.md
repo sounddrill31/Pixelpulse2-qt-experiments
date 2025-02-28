@@ -38,34 +38,6 @@ features:
 - [@ivan-hc](https://github.com/ivan-hc) for [AM](https://github.com/ivan-hc/AM)
 - [@TheAssassin](https://assassinate-you.net) for [linuxdeploy](https://github.com/linuxdeploy/linuxdeploy)
 - [@probonopd](https://github.com/probonopd) for [linuxdeployqt](https://github.com/probonopd/linuxdeployqt)
-### Pre-Setup Instructions
-> [!WARNING]
-> This step is important if the Pixelpulse2 app crashes after connecting to your system
-
-> [!IMPORTANT]
-> This step needs root access through sudo. If your system uses doas or doesn't have access to sudo, adjust the command to match your needs.
-
-- Install the ADALM1000 udev rule to your system
-  - This udev rule will allow the system to access the ADALM1000 Kit when connected 
-    ```bash
-    echo -e "# allow \"plugdev\" group read/write access to ADALM1000 devices\nSUBSYSTEM==\"usb\", ATTRS{idVendor}==\"064b\", ATTRS{idProduct}==\"784c\", MODE=\"0664\", GROUP=\"plugdev\", TAG+=\"uaccess\"\n# allow \"plugdev\" group read/write access to ADALM1000 devices in SAM-BA mode\nSUBSYSTEM==\"usb\", ATTRS{idVendor}==\"03eb\", ATTRS{idProduct}==\"6124\", MODE=\"0664\", GROUP=\"plugdev\", TAG+=\"uaccess\"" | sudo tee /etc/udev/rules.d/53-adi-m1k-usb.rules
-    ```
--   Reload udev rules to ensure the change takes place
-    ```bash
-    sudo udevadm control --reload-rules
-    ```
-- To verify that it worked, run
-    ```bash
-    cat /etc/udev/rules.d/53-adi-m1k-usb.rules
-    ```
-  - This should output the contents of the file we just wrote to
-  - Expected output:
-    ```bash
-    # allow "plugdev" group read/write access to ADALM1000 devices
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="064b", ATTRS{idProduct}=="784c", MODE="0664", GROUP="plugdev", TAG+="uaccess"
-    # allow "plugdev" group read/write access to ADALM1000 devices in SAM-BA mode
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="6124", MODE="0664", GROUP="plugdev", TAG+="uaccess"
-    ```
 
 ### Setup Instructions
 - Remove Previous versions of the AppImage(Optional, replace with correct path as needed)
@@ -83,8 +55,9 @@ features:
   ```
 - Run the AppImage
   ```bash
-  ./Pixelpulse2*.AppImage
+  ./Pixelpulse2*.AppImage --getudev
   ```
+  - The getudev flag tells it to generate and install udev rules into your OS, so that your Adalm1000 is detected without problems. It is recommended to run it with that the first time you open it.
 
 > [!TIP]
 > To Install it systemwide, [install a tool called appman through AM](https://github.com/ivan-hc/AM) and run `appman install path/to/Pixelpulse2*.AppImage`
