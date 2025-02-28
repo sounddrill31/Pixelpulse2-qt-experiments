@@ -169,7 +169,7 @@ jobs:
           # Copy .desktop file and runner script
           cp debian/AppRun AppDir/AppRun
           chmod +x AppDir/AppRun
-          dos2unix AppRun # just in case
+          dos2unix AppDir/AppRun # just in case
           cp debian/*.desktop AppDir
 
           # Copy key system libraries that might not be auto-detected
