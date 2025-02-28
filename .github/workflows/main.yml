@@ -199,11 +199,6 @@ jobs:
 
             # copy all of qml
             cp -rv /usr/lib/$ARCH-linux-gnu/qt5/qml ./shared/lib/qt5
-            echo '[Paths]' > ./bin/qt.conf
-            echo 'Prefix = ../shared/lib/qt5' >> ./bin/qt.conf
-            echo 'Plugins = plugins' >> ./bin/qt.conf
-            echo 'Imports = qml' >> ./bin/qt.conf
-            echo 'Qml2Imports = qml' >> ./bin/qt.conf
 
             # ln ./sharun ./AppRun 
             ./sharun -g
