@@ -31,7 +31,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y qt5-default || true
-        sudo apt-get install -y qt5ct  || true
+        sudo apt-get install -y qt5ct dos2unix || true
         sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools || true # Suppress errors
         sudo apt-get install -y libgl1-mesa-dri xvfb libudev-dev libusb-1.0-0-dev libboost-all-dev libfuse2 fuse3 #qtwayland5 
         sudo apt-get install -y qttools5-dev qtdeclarative5-dev libqt5svg5-dev libqt5opengl5-dev cmake
@@ -150,7 +150,6 @@ jobs:
 
           # Prepare AppDir structure
           mkdir -p AppDir/shared/lib
-          mkdir -p AppDir/bin
           mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps/
           mkdir -p AppDir/usr/share/applications
           mkdir -p AppDir/usr/share/pixelpulse2/
@@ -168,8 +167,9 @@ jobs:
           ln -s ./pp2.ico ./AppDir/pp2.png
 
           # Copy .desktop file and runner script
-          cp debian/run.sh AppDir/bin/run
-          chmod +x AppDir/bin/run
+          cp debian/AppRun AppDir/AppRun
+          chmod +x AppDir/AppRun
+          dos2unix AppRun # just in case
           cp debian/*.desktop AppDir
 
           # Copy key system libraries that might not be auto-detected
@@ -205,7 +205,7 @@ jobs:
             echo 'Imports = qml' >> ./bin/qt.conf
             echo 'Qml2Imports = qml' >> ./bin/qt.conf
 
-            ln ./sharun ./AppRun
+            # ln ./sharun ./AppRun 
             ./sharun -g
           )
 
