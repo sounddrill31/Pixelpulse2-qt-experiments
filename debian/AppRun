@@ -17,6 +17,7 @@ if [ "$1" = '--getudev' ]; then
 			exit 1
 		fi
 		echo "Adding New udev Rule"
+		"$SUDOCMD" mkdir -p /etc/udev/rules.d/
 		cat <<- 'EOF' | "$SUDOCMD" tee /etc/udev/rules.d/53-adi-m1k-usb.rules
 		# allow "plugdev" group read/write access to ADALM1000 devices
 		SUBSYSTEM=="usb", ATTRS{idVendor}=="064b", ATTRS{idProduct}=="784c", MODE="0664", GROUP="plugdev", TAG+="uaccess"
