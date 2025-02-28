@@ -150,6 +150,7 @@ jobs:
 
           # Prepare AppDir structure
           mkdir -p AppDir/shared/lib
+          mkdir -p AppDir/bin
           mkdir -p AppDir/usr/share/icons/hicolor/scalable/apps/
           mkdir -p AppDir/usr/share/applications
           mkdir -p AppDir/usr/share/pixelpulse2/
