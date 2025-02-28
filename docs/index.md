@@ -31,15 +31,22 @@ features:
 
 ### Credits and Greetings
 - [Analog Devices Inc](https://www.analog.com) for [Software](https://github.com/analogdevicesinc/pixelpulse2) and [Board](https://www.analog.com/en/resources/evaluation-hardware-and-software/evaluation-boards-kits/adalm1000.html)
-- [@Samueru-sama](https://github.com/samueru-sama) for porting my LinuxDeployQt AppImage to sharun and ensuring Qt worked
-- [Me](https://sounddrill31.github.io/) for initial x86_64 build using LinuxDeploy and eventual aarch64 port 
+- [@Samueru-sama](https://github.com/samueru-sama) for porting my LinuxDeployQt AppImage to sharun, helping me with udev shenanigans and ensuring Qt worked
+- [QaidVoid](https://github.com/QaidVoid) for SoarPkgs and Soar
+- [@Azathothas](https://github.com/Azathothas) for onboarding me as a maintainer onto SoarPkgs and helping me where I got stuck
 - [@VHSgunzo](https://vhsgunzo.github.io/) for [sharun](https://github.com/VHSgunzo/sharun) and more
+- [Me](https://sounddrill31.github.io/) for initial x86_64 build using LinuxDeploy and eventual aarch64 port
 - [AppImage](https://github.com/AppImage) and [contributors](https://github.com/AppImage/appimagetool/graphs/contributors) for [appimagetool](https://github.com/AppImage/appimagetool) and work on the AppImage format
 - [@ivan-hc](https://github.com/ivan-hc) for [AM](https://github.com/ivan-hc/AM)
 - [@TheAssassin](https://assassinate-you.net) for [linuxdeploy](https://github.com/linuxdeploy/linuxdeploy)
 - [@probonopd](https://github.com/probonopd) for [linuxdeployqt](https://github.com/probonopd/linuxdeployqt)
 
 ### Setup Instructions
+
+> [!TIP]
+> I am going to be maintaining the Soar Package for pixelpulse2 soon!
+> This means that running Pixelpulse2 will become a breeze for linux users. See [SBUILD configuration](https://github.com/pkgforge/soarpkgs/blob/main/packages/pixelpulse2/appimage.sounddrill31.stable.yaml) and [SoarPkgs page](https://pkgs.pkgforge.dev/repo/soarpkgs/sounddrill31-pixelpulse2/pixelpulse2/pixelpulse2/)
+
 <!--#### Automatic Method 😎
 - [Install Soar](https://soar.qaidvoid.dev/installation)
   ```bash
