@@ -56,10 +56,15 @@ features:
   ```bash
   curl -fsSL https://soar.qaidvoid.dev/install.sh | sh
   ```
-  - Run the App
+  - Run the App without installing
+      - The getudev flag tells it to generate and install udev rules into your OS, so that your Adalm1000 is detected without problems. It is recommended to run it with that the first time you open it.
     ```bash
-    soar run pixelpulse2
+    soar run pixelpulse2 --getudev
     ```
+  - Install the App
+    ```bash
+    soar install pixelpulse2
+    ``` <!-- Also need to explain adding the bin folder to path -->
 -->
 #### Manual Method 💪
 ::::: details Show Manual Installation Method
