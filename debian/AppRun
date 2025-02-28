@@ -23,6 +23,7 @@ if [ "$1" = '--getudev' ]; then
 		# allow "plugdev" group read/write access to ADALM1000 devices in SAM-BA mode
 		SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="6124", MODE="0664", GROUP="plugdev", TAG+="uaccess"
 		EOF
+		"$SUDOCMD" udevadm control --reload-rules
 		echo "Udev rules successfully created"
 	fi
 fi
