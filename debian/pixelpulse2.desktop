@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Pixelpulse2
 Comment=Digital frontend for the ADALM1000
-Exec=pixelpulse2
+Exec=run
 Icon=pp2
 Type=Application
 Categories=Utility;Application;Development;

@@ -166,7 +166,9 @@ jobs:
           ln -s ./pp2.ico ./AppDir/.DirIcon
           ln -s ./pp2.ico ./AppDir/pp2.png
 
-          # Copy .desktop file
+          # Copy .desktop file and runner script
+          cp debian/run.sh AppDir/bin/run
+          chmod +x AppDir/bin/run
           cp debian/*.desktop AppDir
 
           # Copy key system libraries that might not be auto-detected
