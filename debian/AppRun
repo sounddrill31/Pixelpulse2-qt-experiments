@@ -36,4 +36,4 @@ if [ "$1" = '--getudev' ]; then
 fi
 
 # Continue with application execution
-exec "$CURRENTDIR"/bin/pixelpulse2
+exec "$CURRENTDIR"/bin/pixelpulse2 "$@"
