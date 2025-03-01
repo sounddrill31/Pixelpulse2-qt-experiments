@@ -44,10 +44,10 @@ features:
 ### Setup Instructions
 
 > [!TIP]
-> I am going to be maintaining the Soar Package for pixelpulse2 soon!
-> This means that running Pixelpulse2 will become a breeze for linux users. See [SBUILD configuration](https://github.com/pkgforge/soarpkgs/blob/main/packages/pixelpulse2/appimage.sounddrill31.stable.yaml) and [SoarPkgs page](https://pkgs.pkgforge.dev/repo/soarpkgs/sounddrill31-pixelpulse2/pixelpulse2/pixelpulse2/)
+> I maintain the SoarPkgs entry for Pixelpulse2!
+> This means that running Pixelpulse2 will be a breeze for linux users. See [SBUILD configuration](https://github.com/pkgforge/soarpkgs/blob/main/packages/pixelpulse2/appimage.sounddrill31.stable.yaml) and [SoarPkgs page](https://pkgs.pkgforge.dev/repo/soarpkgs/sounddrill31-pixelpulse2/pixelpulse2/pixelpulse2/)
 
-<!--#### Automatic Method 😎
+#### Automatic Method 😎
 - [Install Soar](https://soar.qaidvoid.dev/installation)
   ```bash
   wget -qO- https://soar.qaidvoid.dev/install.sh | sh
@@ -57,15 +57,22 @@ features:
   curl -fsSL https://soar.qaidvoid.dev/install.sh | sh
   ```
   - Run the App without installing
-      - The getudev flag tells it to generate and install udev rules into your OS, so that your Adalm1000 is detected without problems. It is recommended to run it with that the first time you open it.
     ```bash
-    soar run pixelpulse2 --getudev
+    soar run pixelpulse2 -- --getudev
     ```
+> [!WARNING]
+> Remember to connect your Adalm1000 Board only after the app opens for the first time and udev rules are installed.
   - Install the App
     ```bash
     soar install pixelpulse2
-    ``` <!-- Also need to explain adding the bin folder to path -->
--->
+    ```
+  - Run the App <!-- Also need to explain adding the bin folder to path -->
+    ```bash
+    pixelpulse2 --getudev
+    ```
+> [!NOTE]
+> The getudev flag tells it to generate and install udev rules into your OS, so that your Adalm1000 is detected without problems. It is recommended to run it with that the first time you open it.
+
 #### Manual Method 💪
 ::::: details Show Manual Installation Method
 - Remove Previous versions of the AppImage(Optional, replace with correct path as needed)
