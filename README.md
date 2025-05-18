@@ -5,7 +5,7 @@
 
 Pixelpulse is a powerful user interface for visualizing and manipulating signals while exploring systems attached to affordable analog interface devices, such as Analog Devices' ADALM1000.
 
-Fully cross-platform using the Qt5 graphics toolkit and OpenGL accelerated density-gradiated rendering, it provides a powerful and accessible tool for initial interactive explorations.
+Fully cross-platform using the Qt6 graphics toolkit and OpenGL accelerated density-gradiated rendering, it provides a powerful and accessible tool for initial interactive explorations.
 
 Intuitive click-and-drag interfaces make exploring system behaviors across a wide range of signal amplitudes, frequencies, or phases a trivial exercise. Just click once to source a constant voltage or current and see what happens. Choose a function (sawtooth, triangle, sinusoidal, square) - adjust parameters, and make waves.
 
@@ -31,8 +31,8 @@ To build from source on any platform, you need to install a C++ compiler toolcha
 If you have not built packages from source before, this is ill-advised.
 *  **Build and install libsmu (https://github.com/sounddrill31/libsmu)**. 
 Libsmu is a library wich contains abstractions for streaming data to and from USB-connected analog interface devices, currently supporting the Analog Devices' ADALM1000. 
-* Install Qt5. We recommend using a version greater than or equal to 5.14.
- * On most Linux Distributions, Qt5 is available in repositories. The complete list of packages required varies, but includes qt's support for declarative (qml) UI programming, qtquick, qtquick-window, qtquick-controls, and qtquick-layouts.
+* Install Qt6. We recommend using a version greater than or equal to 5.14.
+ * On most Linux Distributions, Qt6 is available in repositories. The complete list of packages required varies, but includes qt's support for declarative (qml) UI programming, qtquick, qtquick-window, qtquick-controls, and qtquick-layouts.
 
 To build / run on a generic POSIX platform
 
@@ -67,7 +67,7 @@ To build / run on Ubuntu
 
 * Build and install libsmu (https://github.com/sounddrill31/libsmu)
 
-* Install Qt5 and some Qt modules
+* Install Qt6 and some Qt modules
 
     ```bash
     sudo apt-get install -y qt5-default qtdeclarative5-dev qml-module-qtquick-dialogs qml-module-qt-labs-settings qml-module-qt-labs-folderlistmodel qml-module-qtqml-models2 qml-module-qtquick-controls

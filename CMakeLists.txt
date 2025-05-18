@@ -6,6 +6,10 @@ else()
 endif()
 project(pixelpulse2 CXX C)
 
+# Prepare for qt5.15
+# https://doc.qt.io/qt-6/portingguide.html#disable-use-of-c-api-deprecated-in-qt-5-15
+add_compile_definitions(QT_DISABLE_DEPRECATED_UP_TO=0x050F00)
+
 # libsmu versioning
 set(PP_VERSION_MAJOR 1)
 set(PP_VERSION_MINOR 0)
@@ -54,12 +58,12 @@ endif()
 # write version info to file -- used for CI artifact versioning
 file(WRITE ${CMAKE_BINARY_DIR}/.version ${PP_VERSION_STR})
 
-find_package(Qt5 COMPONENTS REQUIRED Core)
-find_package(Qt5Sql REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Quick REQUIRED)
-find_package(Qt5Network REQUIRED)
-find_package(Qt5Qml REQUIRED)
+find_package(Qt6 COMPONENTS REQUIRED Core)
+find_package(Qt6Sql REQUIRED)
+find_package(Qt6Widgets REQUIRED)	
+find_package(Qt6Quick REQUIRED)
+find_package(Qt6Network REQUIRED)
+find_package(Qt6Qml REQUIRED)
 
 string(TIMESTAMP BUILD_DATE "%Y/%m/%d")
 set(GIT_VERSION ${PP_GIT_REV})
@@ -109,7 +113,7 @@ if(APPLE)
 endif()
 
 FILE(GLOB PP_RESOURCES *.qrc)
-qt5_add_resources(pixelpulse_RESOURCES ${PP_RESOURCES})
+qt6_add_resources(pixelpulse_RESOURCES ${PP_RESOURCES})
 
 FILE(GLOB QML_SRC "qml/*.qml")
 
@@ -128,12 +132,12 @@ FILE(GLOB SRC_LIST  *.cpp
 include_directories(
 	${LIBUSB_INCLUDE_DIRS}
 	${LIBSMU_INCLUDE_DIRS}
-	${Qt5Widgets_INCLUDE_DIRS}
-	${Qt5Quick_INCLUDE_DIRS}
-	${Qt5Qml_INCLUDE_DIRS}
-	${Qt5Network_INCLUDE_DIRS}
-	${Qt5Core_INCLUDE_DIRS}
-	${Qt5Gui_INCLUDE_DIRS}
+	${Qt6Widgets_INCLUDE_DIRS}
+	${Qt6Quick_INCLUDE_DIRS}
+	${Qt6Qml_INCLUDE_DIRS}
+	${Qt6Network_INCLUDE_DIRS}
+	${Qt6Core_INCLUDE_DIRS}
+	${Qt6Gui_INCLUDE_DIRS}
 	${CMAKE_SOURCE_DIR}/Plot
 	${CMAKE_SOURCE_DIR}/utils
 	${CMAKE_SOURCE_DIR}
@@ -163,7 +167,7 @@ if (ENABLE_APPLICATION_BUNDLE)
 
 	set(CMAKE_EXE_LINKER_FLAGS "-Wl,-headerpad_max_install_names -Wl,-search_paths_first ${CMAKE_EXE_LINKER_FLAGS}")
 
-	foreach(plugin ${Qt5Gui_PLUGINS} ${Qt5Svg_PLUGINS})
+	foreach(plugin ${Qt6Gui_PLUGINS} ${Qt6Svg_PLUGINS})
 		get_target_property(_loc ${plugin} LOCATION)
 		get_filename_component(_name ${_loc} NAME)
 		get_filename_component(_dir ${_loc} DIRECTORY)
@@ -213,12 +217,12 @@ endif()
 target_link_libraries(${PROJECT_NAME} LINK_PRIVATE
 		${LIBUSB_LIBRARIES}
 		${LIBSMU_LIBRARIES}
-		${Qt5Widgets_LIBRARIES}
-		${Qt5Quick_LIBRARIES}
-		${Qt5Qml_LIBRARIES}
-		${Qt5Network_LIBRARIES}
-		${Qt5Core_LIBRARIES}
-		${Qt5Gui_LIBRARIES}
+		${Qt6Widgets_LIBRARIES}
+		${Qt6Quick_LIBRARIES}
+		${Qt6Qml_LIBRARIES}
+		${Qt6Network_LIBRARIES}
+		${Qt6Core_LIBRARIES}
+		${Qt6Gui_LIBRARIES}
 )
 
 
