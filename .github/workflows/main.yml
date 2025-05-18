@@ -35,6 +35,7 @@ jobs:
         sudo apt-get install -y qttools5-dev qtdeclarative5-dev libqt5svg5-dev libqt5opengl5-dev cmake
         sudo apt-get install -y qml-module-qtquick2 qml-module-qtquick-extras qml-module-qtquick-window2 qml-module-qtquick-controls2 qml-module-qtquick-controls qml-module-qtgraphicaleffects  qml-module-qtquick-dialogs
         sudo apt-get install -y qml-module-qt-labs-settings qml-module-qt-labs-folderlistmodel qml-module-qtqml-models2
+        bash CI/install-deps.sh
         
     - name: Install dependencies (macOS)
       if: runner.os == 'macOS'
