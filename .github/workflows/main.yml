@@ -83,11 +83,7 @@ jobs:
     - name: Build Pixelpulse2 (Linux and macOS)(macOS disabled)
       if: runner.os == 'Linux'
       run: |
-        mkdir build && cd build
-        cmake ..
-        make
-        sudo make install
-        cd ..
+        bash CI/build.sh 
 
     - name: Build Pixelpulse2 (Windows)
       if: runner.os == 'Windows'
