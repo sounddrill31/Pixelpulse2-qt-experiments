@@ -12,11 +12,11 @@
 using namespace smu;
 
 void registerTypes() {
-    qmlRegisterType<SessionItem>();
-    qmlRegisterType<DeviceItem>();
-    qmlRegisterType<ChannelItem>();
-    qmlRegisterType<SignalItem>();
-    qmlRegisterType<SrcItem>();
+    qmlRegisterType<SessionItem>("SMU", 1, 0, "SessionItem");
+    qmlRegisterType<DeviceItem>("SMU", 1, 0, "DeviceItem");
+    qmlRegisterType<ChannelItem>("SMU", 1, 0, "ChannelItem");
+    qmlRegisterType<SignalItem>("SMU", 1, 0, "SignalItem");
+    qmlRegisterType<SrcItem>("SMU", 1, 0, "SrcItem");
 
     qmlRegisterType<PhosphorRender>("Plot", 1, 0, "PhosphorRender");
     qmlRegisterType<FloatBuffer>("Plot", 1, 0, "FloatBuffer");
