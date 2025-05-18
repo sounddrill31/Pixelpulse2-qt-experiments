@@ -58,7 +58,7 @@ endif()
 # write version info to file -- used for CI artifact versioning
 file(WRITE ${CMAKE_BINARY_DIR}/.version ${PP_VERSION_STR})
 
-find_package(Qt6 COMPONENTS REQUIRED Core)
+find_package(Qt6 COMPONENTS REQUIRED Core ShaderTools)
 find_package(Qt6Sql REQUIRED)
 find_package(Qt6Widgets REQUIRED)	
 find_package(Qt6Quick REQUIRED)
@@ -114,6 +114,16 @@ endif()
 
 FILE(GLOB PP_RESOURCES *.qrc)
 qt6_add_resources(pixelpulse_RESOURCES ${PP_RESOURCES})
+qt6_add_shaders(graph "graph-shaders"
+  BATCHABLE
+  PRECOMPILE
+  OPTIMIZED
+  PREFIX
+  "/shaders/phosphor/"
+  FILES
+  "phosphor.frag"
+  "phosphor.vert"
+)
 
 FILE(GLOB QML_SRC "qml/*.qml")
 
@@ -217,6 +227,7 @@ endif()
 target_link_libraries(${PROJECT_NAME} LINK_PRIVATE
 		${LIBUSB_LIBRARIES}
 		${LIBSMU_LIBRARIES}
+		Qt6::ShaderTools
 		${Qt6Widgets_LIBRARIES}
 		${Qt6Quick_LIBRARIES}
 		${Qt6Qml_LIBRARIES}

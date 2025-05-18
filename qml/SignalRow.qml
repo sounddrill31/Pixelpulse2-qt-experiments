@@ -653,7 +653,7 @@ Rectangle {
       opacity: 1
     }
 
-    PhosphorRender {
+    PhosphorRenderEffect {
         id: line
         anchors.fill: parent
         clip: true
@@ -664,9 +664,8 @@ Rectangle {
         xmax: xaxis.visibleMax
         ymin: axes.ymin
         ymax: axes.ymax
-
         Component.onCompleted: {
-          signal.buffer.setIgnoredFirstSamplesCount(controller.delaySampleCount)
+            signal.buffer.setIgnoredFirstSamplesCount(controller.delaySampleCount)
         }
     }
 

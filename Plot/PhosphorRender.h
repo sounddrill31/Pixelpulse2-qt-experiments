@@ -1,41 +1,29 @@
 #pragma once
 
-#include <QtQuick/QQuickItem>
+#include <QQuickItem>
 #include "FloatBuffer.h"
 
 class PhosphorRender : public QQuickItem
 {
     Q_OBJECT
-
     Q_PROPERTY(FloatBuffer* buffer READ buffer WRITE setBuffer NOTIFY yBufferChanged)
     Q_PROPERTY(FloatBuffer* xBuffer READ xBuffer WRITE setXBuffer NOTIFY xBufferChanged)
-
     Q_PROPERTY(double xmin READ xmin WRITE setXmin NOTIFY xminChanged)
     Q_PROPERTY(double xmax READ xmax WRITE setXmax NOTIFY xmaxChanged)
     Q_PROPERTY(double ymin READ ymin WRITE setYmin NOTIFY yminChanged)
     Q_PROPERTY(double ymax READ ymax WRITE setYmax NOTIFY ymaxChanged)
-
     Q_PROPERTY(double pointSize READ pointSize WRITE setPointSize NOTIFY pointSizeChanged)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
-
-
+    QML_ELEMENT
 public:
-    PhosphorRender(QQuickItem *parent = 0);
+    PhosphorRender(QQuickItem *parent = nullptr);
     ~PhosphorRender();
-
-    QSGNode *updatePaintNode(QSGNode *, UpdatePaintNodeData *);
-
-#define SETTER(PROP) \
-    if (m_ ## PROP == PROP) return; \
-    m_ ## PROP = PROP; \
-    emit PROP ## Changed(PROP); \
-    update();
 
     FloatBuffer* buffer() const { return m_ybuffer; }
     void setBuffer(FloatBuffer* ybuffer) {
         if (m_ybuffer != ybuffer) {
             if (m_ybuffer) {
-                QObject::disconnect(m_ybuffer, &FloatBuffer::dataChanged, this, 0);
+                QObject::disconnect(m_ybuffer, &FloatBuffer::dataChanged, this, nullptr);
             }
             m_ybuffer = ybuffer;
             if (m_ybuffer) {
@@ -48,35 +36,31 @@ public:
 
     FloatBuffer* xBuffer() const { return m_xbuffer; }
     void setXBuffer(FloatBuffer* xbuffer) {
-        if (m_xbuffer) {
-            QObject::disconnect(m_xbuffer, &FloatBuffer::dataChanged, this, 0);
+        if (m_xbuffer != xbuffer) {
+            if (m_xbuffer) {
+                QObject::disconnect(m_xbuffer, &FloatBuffer::dataChanged, this, nullptr);
+            }
+            m_xbuffer = xbuffer;
+            if (m_xbuffer) {
+                QObject::connect(m_xbuffer, &FloatBuffer::dataChanged, this, &PhosphorRender::update);
+            }
+            emit xBufferChanged(m_xbuffer);
+            update();
         }
-        m_xbuffer = xbuffer;
-        if (m_xbuffer) {
-            QObject::connect(m_xbuffer, &FloatBuffer::dataChanged, this, &PhosphorRender::update);
-        }
-        emit xBufferChanged(m_xbuffer);
-        update();
     }
 
-
     double xmin() const { return m_xmin; }
-    void setXmin(double xmin) { SETTER(xmin) }
-
+    void setXmin(double xmin);
     double xmax() const { return m_xmax; }
-    void setXmax(double xmax) { SETTER(xmax) }
-
+    void setXmax(double xmax);
     double ymin() const { return m_ymin; }
-    void setYmin(double ymin) { SETTER(ymin) }
-
+    void setYmin(double ymin);
     double ymax() const { return m_ymax; }
-    void setYmax(double ymax) { SETTER(ymax) }
-
+    void setYmax(double ymax);
     double pointSize() const { return m_pointSize; }
-    void setPointSize(double pointSize) { SETTER(pointSize) }
-
+    void setPointSize(double pointSize);
     QColor color() const { return m_color; }
-    void setColor(QColor color) { SETTER(color) }
+    void setColor(QColor color);
 
 signals:
     void xBufferChanged(FloatBuffer* b);
@@ -89,13 +73,19 @@ signals:
     void colorChanged(QColor v);
 
 private:
-    FloatBuffer* m_ybuffer;
-    FloatBuffer* m_xbuffer;
+    // Define SETTER macro before its usage
+    #define SETTER(PROP) \
+        if (m_##PROP == PROP) return; \
+        m_##PROP = PROP; \
+        emit PROP##Changed(PROP); \
+        update();
 
-    double m_xmin;
-    double m_xmax;
-    double m_ymin;
-    double m_ymax;
-    double m_pointSize;
-    QColor m_color;
+    FloatBuffer* m_ybuffer = nullptr;
+    FloatBuffer* m_xbuffer = nullptr;
+    double m_xmin = 0;
+    double m_xmax = 1;
+    double m_ymin = 0;
+    double m_ymax = 1;
+    double m_pointSize = 0;
+    QColor m_color = QColor(0.03*255, 0.3*255, 0.03*255, 1*255);
 };
