@@ -1,8 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 
 Window {
   title: "Acquisition Settings"
@@ -101,12 +100,25 @@ Window {
 
       CheckBox {
         id: toggleStatusBar
-        style: CheckBoxStyle {
-          label: Label {
-                  color: 'white';
-                  text: 'Show delay value on main window'
-                  font.pixelSize: 14
-                }
+        contentItem: Row {
+          spacing: 6
+          Rectangle {
+            width: 20; height: 20
+            radius: 4
+            border.color: "#aaa"
+            color: toggleStatusBar.checked ? "#666" : "#222"
+            Rectangle {
+              anchors.centerIn: parent
+              width: 12; height: 12
+              radius: 2
+              color: toggleStatusBar.checked ? "#fff" : "transparent"
+            }
+          }
+          Text {
+            color: 'white'
+            text: 'Show delay value on main window'
+            font.pixelSize: 14
+          }
         }
       } // Checkbox
     } // ColumnLayout

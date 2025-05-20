@@ -1,8 +1,7 @@
 import QtQuick 2.2
 import QtQuick.Layouts 1.0
 import Plot 1.0
-import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 import QtQml 2.2
 
 Rectangle {
@@ -60,34 +59,21 @@ Rectangle {
     width: timelinePane.spacing
     height: timelinePane.spacing
 
-    iconSource: 'qrc:/icons/' + signal.src.src + '.png'
+    icon.source: 'qrc:/icons/' + signal.src.src + '.png'
 
-    style: ButtonStyle {
-      background: Rectangle {
-        opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
-        color: 'black'
-      }
+    background: Rectangle {
+      opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
+      color: 'black'
+      radius: 4
     }
 
     menu: Menu {
-      MenuItem { text: "Constant"
-        onTriggered: signalBlock.switchToConstant()
-      }
-      MenuItem { text: "Sine"
-        onTriggered: signalBlock.switchToPeriodic('sine')
-      }
-      MenuItem { text: "Triangle"
-        onTriggered: signalBlock.switchToPeriodic('triangle')
-      }
-      MenuItem { text: "Sawtooth"
-        onTriggered: signalBlock.switchToPeriodic('sawtooth')
-      }
-      MenuItem { text: "Stairstep"
-        onTriggered: signalBlock.switchToPeriodic('stairstep')
-      }
-      MenuItem { text: "Square"
-        onTriggered: signalBlock.switchToPeriodic('square')
-      }
+      MenuItem { text: "Constant"; onTriggered: signalBlock.switchToConstant() }
+      MenuItem { text: "Sine"; onTriggered: signalBlock.switchToPeriodic('sine') }
+      MenuItem { text: "Triangle"; onTriggered: signalBlock.switchToPeriodic('triangle') }
+      MenuItem { text: "Sawtooth"; onTriggered: signalBlock.switchToPeriodic('sawtooth') }
+      MenuItem { text: "Stairstep"; onTriggered: signalBlock.switchToPeriodic('stairstep') }
+      MenuItem { text: "Square"; onTriggered: signalBlock.switchToPeriodic('square') }
     }
   }
 

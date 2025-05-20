@@ -1,8 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 
 Rectangle {
   id: channelBlock
@@ -21,13 +20,12 @@ Rectangle {
       'svmi',
       'simv',
     ]
-    iconSource: 'qrc:/icons/' + icons[channel.mode] + '.png'
+    icon.source: 'qrc:/icons/' + icons[channel.mode] + '.png'
 
-    style: ButtonStyle {
-      background: Rectangle {
-        opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
-        color: 'black'
-      }
+    background: Rectangle {
+      opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
+      color: 'black'
+      radius: 4
     }
 
     function updateMode() {

@@ -1,8 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import QtQml.Models 2.1
-import QtQuick.Controls 1.1
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 import "jsutils.js" as JSUtils
 
 ColumnLayout {
@@ -466,21 +465,17 @@ ColumnLayout {
     property int logId: 0
 
     id: logOutput
-    readOnly: true;
+    readOnly: true
     Layout.fillWidth: true
     Layout.minimumWidth: parent.Layout.minimumWidth
     Layout.maximumWidth: parent.Layout.maximumWidth
-    backgroundVisible: false
     selectByKeyboard: true
     selectByMouse: true
     implicitHeight: 70
-
-    style: TextAreaStyle {
-      textColor: "#fff"
-      selectionColor: "steelblue"
-      selectedTextColor: "#eee"
-      backgroundColor: "#eee"
-    }
+    color: "#fff"
+    selectionColor: "steelblue"
+    selectedTextColor: "#eee"
+    background: Rectangle { color: "#eee" }
 
     TextEdit {
       id: textEdit

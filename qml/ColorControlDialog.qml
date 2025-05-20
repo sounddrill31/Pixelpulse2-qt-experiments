@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
-import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 import QtQuick.Dialogs
 import Qt5Compat.GraphicalEffects
 
@@ -46,9 +45,22 @@ Dialog {
                 anchors.left: parent.left
                 anchors.topMargin: 5/100 * parent.height
                 anchors.leftMargin:15/100 * parent.width
-                style: CheckBoxStyle {
-                    label: Text {
-                        color: "white"
+                contentItem: Row {
+                    spacing: 6
+                    Rectangle {
+                        width: 20; height: 20
+                        radius: 4
+                        border.color: "#aaa"
+                        color: signalCheckBox.checked ? "#666" : "#222"
+                        Rectangle {
+                            anchors.centerIn: parent
+                            width: 12; height: 12
+                            radius: 2
+                            color: signalCheckBox.checked ? "#fff" : "transparent"
+                        }
+                    }
+                    Text {
+                        color: 'white'
                         text: 'Time Plots'
                         font.pixelSize: 14
                     }
@@ -57,7 +69,6 @@ Dialog {
                     sliderContrast.valueHasChanged(signalCheckBox);
                     sliderPhosphorRender.valueHasChanged(signalCheckBox);
                     sliderDotSize.valueHasChanged(signalCheckBox);
-
                 }
             }
             CheckBox {
@@ -68,9 +79,22 @@ Dialog {
                 anchors.left: signalCheckBox.right
                 anchors.topMargin: 5/100 * parent.height
                 anchors.leftMargin: 30
-                style: CheckBoxStyle {
-                    label: Text {
-                        color: "white"
+                contentItem: Row {
+                    spacing: 6
+                    Rectangle {
+                        width: 20; height: 20
+                        radius: 4
+                        border.color: "#aaa"
+                        color: plotsCheckBox.checked ? "#666" : "#222"
+                        Rectangle {
+                            anchors.centerIn: parent
+                            width: 12; height: 12
+                            radius: 2
+                            color: plotsCheckBox.checked ? "#fff" : "transparent"
+                        }
+                    }
+                    Text {
+                        color: 'white'
                         text: 'XY Plots'
                         font.pixelSize: 14
                     }
@@ -79,7 +103,6 @@ Dialog {
                     sliderContrast.valueHasChanged(plotsCheckBox);
                     sliderPhosphorRender.valueHasChanged(plotsCheckBox);
                     sliderDotSize.valueHasChanged(plotsCheckBox);
-
                 }
             }
 
@@ -100,8 +123,8 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.0
-                minimumValue: 0.0
-                maximumValue: 1.0
+                from: 0.0
+                to: 1.0
                 stepSize: 0.01
                 width: 70/100 * parent.width
                 activeFocusOnPress: true
@@ -129,9 +152,24 @@ Dialog {
                         oldValue = value
                     }
                 }
-                style: StyleSlider { }
+                background: Rectangle {
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                    radius: 8
+                }
+                handle: Rectangle {
+                    color: control.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                    width: 20
+                    height: 20
+                    radius: 8
+                }
                 onValueChanged: valueHasChanged(sliderBrightness)
-
             }
 
             Text{
@@ -150,9 +188,9 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.0
-                minimumValue: 0.0
+                from: 0.0
                 focus: true
-                maximumValue: 1.0
+                to: 1.0
                 stepSize: 0.01
                 width: 70/100 * parent.width
                 activeFocusOnTab: true
@@ -184,7 +222,23 @@ Dialog {
                     /* Check for value updates in brightness slider */
                     sliderBrightness.valueHasChanged(sliderContrast)
                 }
-                style: StyleSlider { }
+                background: Rectangle {
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                    radius: 8
+                }
+                handle: Rectangle {
+                    color: control.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                    width: 20
+                    height: 20
+                    radius: 8
+                }
                 onValueChanged: sliderContrast.valueHasChanged(sliderContrast)
             }
             Text{
@@ -203,9 +257,9 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.0
-                minimumValue: 0.0
+                from: 0.0
                 focus: true
-                maximumValue: 1.0
+                to: 1.0
                 stepSize: 0.01
                 width: 70/100 * parent.width
                 activeFocusOnTab: true
@@ -233,7 +287,23 @@ Dialog {
                         window.dotSignalVoltage = Qt.rgba(rVoltage, gVoltage,  bVoltage, 1.0)
                     }
                 }
-                style: StyleSlider { }
+                background: Rectangle {
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                    radius: 8
+                }
+                handle: Rectangle {
+                    color: control.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                    width: 20
+                    height: 20
+                    radius: 8
+                }
                 onValueChanged: sliderPhosphorRender.valueHasChanged(sliderPhosphorRender)
             }
             Text{
@@ -252,9 +322,9 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.1
-                minimumValue: 0.1
+                from: 0.1
                 focus: true
-                maximumValue: 1.0
+                to: 1.0
                 stepSize: 0.1
                 width: 70/100 * parent.width
                 activeFocusOnTab: true
@@ -271,7 +341,23 @@ Dialog {
                         window.dotSizeSignal = factor
                     }
                 }
-                style: StyleSlider { }
+                background: Rectangle {
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                    radius: 8
+                }
+                handle: Rectangle {
+                    color: control.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                    width: 20
+                    height: 20
+                    radius: 8
+                }
                 onValueChanged: sliderDotSize.valueHasChanged(sliderDotSize)
             }
         }

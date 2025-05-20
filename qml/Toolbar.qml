@@ -1,7 +1,6 @@
 import QtQuick 2.1
 import QtQuick.Layouts 1.0
-import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls 2.5
 import QtQuick.Dialogs
 import Qt5Compat.GraphicalEffects
 import "dataexport.js" as CSVExport
@@ -52,7 +51,11 @@ ToolbarStyle {
   Button {
     tooltip: "Menu"
     Layout.fillHeight: true
-    style: btnStyle
+    background: Rectangle {
+      implicitWidth: 56
+      opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.01
+      color: 'white'
+    }
 
     menu: Menu {
 
@@ -132,15 +135,19 @@ ToolbarStyle {
       MenuSeparator{}
       MenuItem { text: "Exit"; onTriggered: Qt.quit() }
     }
-    iconSource: 'qrc:/icons/gear.png'
+    icon.source: 'qrc:/icons/gear.png'
   }
 
   Button {
     tooltip: "Start"
     Layout.fillHeight: true
     Layout.alignment: Qt.AlignRight
-    style: btnStyle
-    iconSource: (controller.enabled & (session.availableDevices > 0)) ? 'qrc:/icons/pause.png' : 'qrc:/icons/play.png'
+    background: Rectangle {
+      implicitWidth: 56
+      opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.01
+      color: 'white'
+    }
+    icon.source: (controller.enabled & (session.availableDevices > 0)) ? 'qrc:/icons/pause.png' : 'qrc:/icons/play.png'
 
     onClicked: {
       if (session.availableDevices > 0) {
