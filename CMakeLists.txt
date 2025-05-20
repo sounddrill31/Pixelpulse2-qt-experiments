@@ -200,10 +200,10 @@ qt6_add_shaders(${PROJECT_NAME} "${PROJECT_NAME}-shaders"
   PRECOMPILE
   OPTIMIZED
   PREFIX
-  "/shaders/phosphor"
+  "/"
   FILES
-  "phosphor.frag"
-  "phosphor.vert"
+  "shaders/phosphor/phosphor.frag"
+  "shaders/phosphor/phosphor.vert"
 )
 
 if (NOT ENABLE_APPLICATION_BUNDLE)
