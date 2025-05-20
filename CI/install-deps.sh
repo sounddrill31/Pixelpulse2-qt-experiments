@@ -25,6 +25,9 @@ elif command -v pacman &> /dev/null; then
     # Essentials
     pacman -S --noconfirm git base-devel cmake python wget
 
+    # lib4bin Essentials
+    pacman -S --noconfirm file binutils patchelf findutils grep sed coreutils strace
+
     # Qt5 core packages
     pacman -S --noconfirm qt5-base qt5-tools qt5-doc qt5-examples
 
