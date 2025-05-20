@@ -2,8 +2,7 @@ import QtQuick 2.1
 import QtQuick.Layouts 1.0
 import QtQuick.Controls
 import QtQuick.Controls.Styles 1.1
-import QtQuick.Dialogs 1.0
-import QtQuick.Dialogs 1.2
+import QtQuick.Dialogs
 import Qt5Compat.GraphicalEffects
 import "dataexport.js" as CSVExport
 import "sesssave.js" as StateSave

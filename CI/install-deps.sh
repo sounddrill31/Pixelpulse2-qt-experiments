@@ -14,4 +14,4 @@ sudo apt install -y qml-module-qt-labs-settings qml-module-qt-labs-folderlistmod
 # Post Migration
 sudo apt install -y qt6-base-dev qml6-module-qtquick qt6-declarative-dev mesa-common-dev libfontconfig1  libglu1-mesa-dev libgl1-mesa-dev libglx-dev libqt6shadertools6-dev || true
 sudo apt install -y qml6-module-qtquick-controls qml6-module-qtquick-layouts qml6-module-qtquick-window qml6-module-qtquick-templates || true
-sudo apt install -y qml6-module-qt5compat-graphicaleffects qml6-module-qtqml-workerscript  || true
+sudo apt install -y qml6-module-qtquick-dialogs qml6-module-qt5compat-graphicaleffects qml6-module-qtqml-workerscript  || true
