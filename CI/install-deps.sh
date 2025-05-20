@@ -20,24 +20,24 @@ if command -v apt &> /dev/null; then
     sudo apt install -y qml6-module-qtquick-dialogs qml6-module-qt5compat-graphicaleffects qml6-module-qtqml-workerscript  || true    
 elif command -v pacman &> /dev/null; then
     # Update package database
-    pacman -Sy
+    pacman -Sy --noconfirm
 
     # Essentials
-    pacman -S git base-devel cmake
+    pacman -S --noconfirm git base-devel cmake
 
     # Qt5 core packages
-    pacman -S qt5-base qt5-tools qt5-doc qt5-examples
+    pacman -S --noconfirm qt5-base qt5-tools qt5-doc qt5-examples
 
     # Additional development tools
-    pacman -S dos2unix cmake boost mesa xorg-server-xvfb fuse2 fuse3
+    pacman -S --noconfirm dos2unix cmake boost mesa xorg-server-xvfb fuse2 fuse3
 
     # Qt5 additional modules
-    pacman -S qt5-declarative qt5-svg qt5-quickcontrols qt5-quickcontrols2
-    pacman -S qt5-graphicaleffects qt5-multimedia
+    pacman -S --noconfirm qt5-declarative qt5-svg qt5-quickcontrols qt5-quickcontrols2
+    pacman -S --noconfirm qt5-graphicaleffects qt5-multimedia
 
     # Qt6 packages (if needed)
-    pacman -S qt6-base qt6-declarative qt6-tools
-    pacman -S qt6-shadertools qt6-svg qt6-5compat
+    pacman -S --noconfirm qt6-base qt6-declarative qt6-tools
+    pacman -S --noconfirm qt6-shadertools qt6-svg qt6-5compat
 else
     echo "Unsupported package manager. Please install Qt manually."
     exit 1
