@@ -1,10 +1,18 @@
-#version 450
-layout(location = 1) uniform float opacity;
-layout(location = 2) uniform vec4 color;
-out vec4 fragColor;
+#version 440
+
+layout(location = 0) in vec2 fragCoord;
+layout(location = 0) out vec4 fragColor;
+
+layout(std140, binding = 0) uniform buf {
+    mat4 matrix;
+    float opacity;
+    vec4 color;
+} ubuf;
+
 void main() {
-    // Simple placeholder for point rendering effect
-    // Can be enhanced to sample a texture of point data
     float dist = length(gl_PointCoord - vec2(0.5)) * 2.0;
-    fragColor = color * opacity * (1.0 - dist);
+    fragColor = ubuf.color * ubuf.opacity * (1.0 - dist);
+    // Uncomment if you want to discard fragments outside the point circle
+    // if(dist > 1.0)
+    //    discard;
 }
