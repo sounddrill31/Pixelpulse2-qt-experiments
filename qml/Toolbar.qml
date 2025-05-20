@@ -7,9 +7,7 @@ import "dataexport.js" as CSVExport
 import "sesssave.js" as StateSave
 
 ToolbarStyle {
-  ExclusiveGroup {
-    id: timeGroup
-  }
+  property var timeGroup: Qt.createQmlObject('import QtQuick.Controls 2.5; ExclusiveGroup {}', this)
 
   property alias repeatedSweep: repeatedSweepItem.checked
   property alias plotsVisible: plotsVisibleItem.checked
