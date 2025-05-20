@@ -115,7 +115,7 @@ endif()
 
 FILE(GLOB PP_RESOURCES *.qrc)
 qt6_add_resources(pixelpulse_RESOURCES ${PP_RESOURCES})
-qt6_add_shaders(phosphor "phosphor-shaders"
+qt6_add_shaders(pixelpulse_RESOURCES "pixelpulse_RESOURCES-shaders"
   BATCHABLE
   PRECOMPILE
   OPTIMIZED
