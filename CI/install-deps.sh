@@ -23,7 +23,7 @@ elif command -v pacman &> /dev/null; then
     pacman -Sy --noconfirm
 
     # Essentials
-    pacman -S --noconfirm git base-devel cmake
+    pacman -S --noconfirm git base-devel icu
 
     # Qt5 core packages
     pacman -S --noconfirm qt5-base qt5-tools qt5-doc qt5-examples
