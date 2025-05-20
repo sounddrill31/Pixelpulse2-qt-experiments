@@ -63,6 +63,7 @@ jobs:
     - name: Clone and build libsmu (Linux and macOS)(macOS disabled)
       if: runner.os == 'Linux'
       run: |
+        sed -i 's/sudo //g' CI/prepare-build-libsmu.sh
         bash CI/prepare-build-libsmu.sh
 
     - name: Clone and build libsmu (Windows)
@@ -78,6 +79,7 @@ jobs:
     - name: Build Pixelpulse2 (Linux and macOS)(macOS disabled)
       if: runner.os == 'Linux'
       run: |
+        sed -i 's/sudo //g' CI/build.sh
         bash CI/build.sh 
 
     - name: Build Pixelpulse2 (Windows)
