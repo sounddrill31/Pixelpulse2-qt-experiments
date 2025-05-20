@@ -115,12 +115,12 @@ endif()
 
 FILE(GLOB PP_RESOURCES *.qrc)
 qt6_add_resources(pixelpulse_RESOURCES ${PP_RESOURCES})
-qt6_add_shaders(graph "graph-shaders"
+qt6_add_shaders(phosphor "phosphor-shaders"
   BATCHABLE
   PRECOMPILE
   OPTIMIZED
   PREFIX
-  "/shaders/phosphor/"
+  "/shaders/phosphor"
   FILES
   "phosphor.frag"
   "phosphor.vert"
