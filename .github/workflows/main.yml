@@ -183,10 +183,10 @@ jobs:
               /usr/lib/libEGL* \
               /usr/lib/libgallium-* \
               /usr/lib/dri/* \
-              /usr/lib/qt5/plugins/*/*
+              /usr/lib/qt6/plugins/*/*
 
             # copy all of qml
-            cp -rv /usr/lib/qt5/qml ./shared/lib/qt5
+            cp -rv /usr/lib/qt6/qml ./shared/lib/qt6
 
             # ln ./sharun ./AppRun 
             ./sharun -g
