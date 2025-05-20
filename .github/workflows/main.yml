@@ -14,7 +14,8 @@ jobs:
       matrix:
         os: [ubuntu-24.04,ubuntu-24.04-arm] #[ubuntu-20.04, macos-latest, windows-latest]
       fail-fast: false
-
+    container:
+      image: ghcr.io/pkgforge-dev/archlinux:latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -27,14 +28,14 @@ jobs:
     - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
-        sudo apt-get update
-        sudo apt-get install -y qt5-default || true
-        sudo apt-get install -y qt5ct dos2unix || true
-        sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools || true # Suppress errors
-        sudo apt-get install -y libgl1-mesa-dri xvfb libudev-dev libusb-1.0-0-dev libboost-all-dev libfuse2 fuse3 #qtwayland5 
-        sudo apt-get install -y qttools5-dev qtdeclarative5-dev libqt5svg5-dev libqt5opengl5-dev cmake
-        sudo apt-get install -y qml-module-qtquick2 qml-module-qtquick-extras qml-module-qtquick-window2 qml-module-qtquick-controls2 qml-module-qtquick-controls qml-module-qtgraphicaleffects  qml-module-qtquick-dialogs
-        sudo apt-get install -y qml-module-qt-labs-settings qml-module-qt-labs-folderlistmodel qml-module-qtqml-models2
+        # sudo apt-get update
+        # sudo apt-get install -y qt5-default || true
+        # sudo apt-get install -y qt5ct dos2unix || true
+        # sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools || true # Suppress errors
+        # sudo apt-get install -y libgl1-mesa-dri xvfb libudev-dev libusb-1.0-0-dev libboost-all-dev libfuse2 fuse3 #qtwayland5 
+        # sudo apt-get install -y qttools5-dev qtdeclarative5-dev libqt5svg5-dev libqt5opengl5-dev cmake
+        # sudo apt-get install -y qml-module-qtquick2 qml-module-qtquick-extras qml-module-qtquick-window2 qml-module-qtquick-controls2 qml-module-qtquick-controls qml-module-qtgraphicaleffects  qml-module-qtquick-dialogs
+        # sudo apt-get install -y qml-module-qt-labs-settings qml-module-qt-labs-folderlistmodel qml-module-qtqml-models2
         bash CI/install-deps.sh
         
     - name: Install dependencies (macOS)
@@ -133,6 +134,7 @@ jobs:
     - name: Create AppImage with Dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
+          # change /usr/lib to /usr/lib/ if Ubuntu/Debian
           export ARCH="$(uname -m)"
           export VERSION="$(echo "$GITHUB_SHA" | cut -c 1-9)"
           export APP=Pixelpulse2
@@ -145,7 +147,7 @@ jobs:
           ln -s ./usr/share ./AppDir/share
 
           # Copy libsmu library
-          cp /usr/lib/$ARCH-linux-gnu/libsmu.so.1.0.4  AppDir/shared/lib
+          cp /usr/lib/libsmu.so.1.0.4  AppDir/shared/lib
           ln -s ./libsmu.so.1.0.4 AppDir/shared/lib/libsmu.so.1
           ln -s ./libsmu.so.1.0.4 AppDir/shared/lib/libsmu.so
 
@@ -163,8 +165,8 @@ jobs:
 
           # Copy key system libraries that might not be auto-detected
           # Note: Be selective and only include necessary libraries
-          cp /usr/lib/$ARCH-linux-gnu/libudev.so.1     AppDir/shared/lib/
-          cp /usr/lib/$ARCH-linux-gnu/libusb-1.0.so.0  AppDir/shared/lib/
+          cp /usr/lib/libudev.so.1     AppDir/shared/lib/
+          cp /usr/lib/libusb-1.0.so.0  AppDir/shared/lib/
 
           # Copy udev rules
           mkdir -p AppDir/etc/udev/rules.d
@@ -180,14 +182,14 @@ jobs:
             chmod +x ./lib4bin
             xvfb-run -a -- ./lib4bin -p -v -e -k -w \
               /usr/bin/pixelpulse2 \
-              /usr/lib/$ARCH-linux-gnu/libvulkan* \
-              /usr/lib/$ARCH-linux-gnu/libEGL* \
-              /usr/lib/$ARCH-linux-gnu/libgallium-* \
-              /usr/lib/$ARCH-linux-gnu/dri/* \
-              /usr/lib/$ARCH-linux-gnu/qt5/plugins/*/*
+              /usr/lib/libvulkan* \
+              /usr/lib/libEGL* \
+              /usr/lib/libgallium-* \
+              /usr/lib/dri/* \
+              /usr/lib/qt5/plugins/*/*
 
             # copy all of qml
-            cp -rv /usr/lib/$ARCH-linux-gnu/qt5/qml ./shared/lib/qt5
+            cp -rv /usr/lib/qt5/qml ./shared/lib/qt5
 
             # ln ./sharun ./AppRun 
             ./sharun -g
