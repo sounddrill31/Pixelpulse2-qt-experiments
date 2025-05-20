@@ -43,6 +43,26 @@ To build / run on a generic POSIX platform
     cmake ..
     make
 
+Linux Build Scripts:
+
+> [!WARNING]
+> This may not be up to date and may break frequently. 
+
+For a reasonably recent Ubuntu version, please use our scripts here:
+1. Install Dependencies:
+```bash
+bash CI/install-deps.sh
+```
+2. Build and Install libsmu:
+```bash
+bash CI/prepare-build-libsmu.sh
+``` 
+3. Build and Install Pixelpulse2: 
+```bash
+bash CI/build.sh
+```
+
+
 On Windows the process is similar. Write the following commands in a cmd console
 
 	git clone https://github.com/sounddrill31/Pixelpulse2
