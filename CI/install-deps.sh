@@ -20,7 +20,7 @@ if command -v apt &> /dev/null; then
     sudo apt install -y qml6-module-qtquick-dialogs qml6-module-qt5compat-graphicaleffects qml6-module-qtqml-workerscript  || true    
 elif command -v pacman &> /dev/null; then
     # Update package database
-    pacman -Sy --noconfirm
+    pacman -Syu --noconfirm
 
     # Essentials
     pacman -S --noconfirm git base-devel cmake python
