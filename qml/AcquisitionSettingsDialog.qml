@@ -73,14 +73,13 @@ Window {
 
         SpinBox {
           id: delay
-          maximumValue: 1000
-          minimumValue: 0
-          decimals: 2
+          from: 0
+          to: 1000
+          value: 0
           stepSize: 0.01
 
           onValueChanged: {
             var sampleCount = delayToSamples(delay.value);
-
             if (sampleCount !== controller.delaySampleCount) {
               controller.delaySampleCount = sampleCount;
             }
