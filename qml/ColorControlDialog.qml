@@ -4,7 +4,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Dialogs 1.0
 import QtQuick.Dialogs 1.2
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 
 Dialog {
     title: "Display settings"
