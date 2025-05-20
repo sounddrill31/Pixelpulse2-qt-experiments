@@ -22,6 +22,9 @@ elif command -v pacman &> /dev/null; then
     # Update package database
     pacman -Sy
 
+    # Essentials
+    pacman -S git base-devel cmake
+
     # Qt5 core packages
     pacman -S qt5-base qt5-tools qt5-doc qt5-examples
 
