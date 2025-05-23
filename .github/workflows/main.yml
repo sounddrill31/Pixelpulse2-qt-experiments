@@ -218,4 +218,4 @@ jobs:
     - name: Test AppImage
       run: |
         chmod +x Pixelpulse2*.AppImage
-        timeout 1m xvfb-run -a -- ./Pixelpulse2*.AppImage --appimage-extract-and-run
+        timeout 1m  xvfb-run -a -- ./Pixelpulse2*.AppImage --appimage-extract-and-run || { exit_code=$?; [ $exit_code -eq 124 ] || (echo "Error: Process failed with exit code $exit_code"; exit $exit_code); }
