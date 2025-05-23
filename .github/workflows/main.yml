@@ -214,3 +214,9 @@ jobs:
         tag_name: ${{ github.run_id }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Test AppImage
+      timeout-minutes: 1
+      run: |
+        chmod +x Pixelpulse2*.AppImage
+        QT_QPA_PLATFORM="vnc" ./Pixelpulse2*.AppImage
