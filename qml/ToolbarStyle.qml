@@ -1,7 +1,7 @@
 import QtQuick 2.1
 import QtQuick.Controls
 import QtQuick.Layouts 1.0
-import QtQuick.Controls.Styles 1.1
+//import QtQuick.Controls.Styles 1.1
 
 Rectangle {
   gradient: Gradient {
@@ -11,15 +11,12 @@ Rectangle {
     GradientStop { position: 1.0; color: '#585868' }
   }
 
-  property alias btnStyle: btnStyle
-  Component {
-    id: btnStyle
-    ButtonStyle {
-      background: Rectangle {
-        implicitWidth: 56
-        opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.01
-        color: 'white'
-      }
+  property Component btnStyle: Component {
+    Rectangle {
+      implicitWidth: 56
+      implicitHeight: 40
+      opacity: parent.pressed ? 0.3 : parent.checked ? 0.2 : 0.01
+      color: 'white'
     }
   }
 

@@ -2,7 +2,7 @@ import QtQuick 2.1
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+//import QtQuick.Controls.Styles 1.1
 
 Rectangle {
   id: channelBlock
@@ -10,24 +10,22 @@ Rectangle {
   property alias signalRepeater:signalRepeater
   color: '#333'
 
-  Button {
+  ToolButton {
     anchors.top: parent.top
     anchors.left: parent.left
     width: timelinePane.spacing
     height: timelinePane.spacing
-
+  
     property var icons: [
       'mv',
       'svmi',
       'simv',
     ]
-    iconSource: 'qrc:/icons/' + icons[channel.mode] + '.png'
-
-    style: ButtonStyle {
-      background: Rectangle {
-        opacity: control.pressed ? 0.3 : control.checked ? 0.2 : 0.1
-        color: 'black'
-      }
+    icon.source: 'qrc:/icons/' + icons[channel.mode] + '.png'
+  
+    background: Rectangle {
+      opacity: parent.pressed ? 0.3 : parent.checked ? 0.2 : 0.1
+      color: 'black'
     }
 
     function updateMode() {
@@ -39,7 +37,10 @@ Rectangle {
       xyPlot.xsignal = (channel.mode == 1) ? xyPlot.vsignal : xyPlot.isignal;
     }
 
-    menu: Menu {
+    onClicked: contextMenu.popup()
+    
+    Menu {
+      id: contextMenu
       MenuItem { text: "Measure Voltage"
         onTriggered: channel.mode = 0
       }

@@ -1,7 +1,7 @@
-import QtQuick 2.1
+import QtQuick 2.15
 import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.1
-import QtQuick.Controls.Styles 1.1
+import QtQuick.Controls
+//import QtQuick.Controls.Styles 1.1
 import "jsutils.js" as JSUtils
 import "sesssave.js" as StateSave
 
@@ -25,14 +25,14 @@ ColumnLayout {
     Layout.fillHeight: true
     selectByKeyboard: true
     selectByMouse: true
-    backgroundVisible: false
-	text: "Built: " + versions.build_date + "    " + "Version: " + versions.git_version + JSUtils.checkLatest(outField);
-    style: TextAreaStyle {
-        textColor: "#fff"
-        selectionColor: "steelblue"
-        selectedTextColor: "#eee"
-        backgroundColor: "#eee"
-    }
+    text: "Built: " + versions.build_date + "    " + "Version: " + versions.git_version + JSUtils.checkLatest(outField);
+    color: "#fff"
+    selectionColor: "steelblue"
+    selectedTextColor: "#eee"
+
+    // Simple dark theme
+    palette.base: "#333"
+    palette.text: "#fff"
   }
 
   TextInput {

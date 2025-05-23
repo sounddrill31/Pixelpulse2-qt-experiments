@@ -68,7 +68,7 @@ Item {
       z: -1
     }
 
-  PhosphorRenderEffect {
+  PhosphorRender {
       id: line
       anchors.fill: parent
       clip: true
@@ -192,5 +192,6 @@ Item {
         color: '#fff'
         text: xsignal.label == 'Current' ? '[A]' : '[V]'
       }
+    }
   }
 }

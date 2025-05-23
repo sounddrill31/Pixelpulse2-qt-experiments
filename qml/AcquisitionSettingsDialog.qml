@@ -1,8 +1,8 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Window 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+//import QtQuick.Controls.Styles 1.1
 
 Window {
   title: "Acquisition Settings"
@@ -74,13 +74,16 @@ Window {
 
         SpinBox {
           id: delay
-          maximumValue: 1000
-          minimumValue: 0
-          decimals: 2
-          stepSize: 0.01
+          to: 1000
+          from: 0
+          stepSize: 1
+          editable: true
+
+          // For decimal support, you might need to use a custom validator
+          property real realValue: value / 100.0
 
           onValueChanged: {
-            var sampleCount = delayToSamples(delay.value);
+            var sampleCount = delayToSamples(realValue);
 
             if (sampleCount !== controller.delaySampleCount) {
               controller.delaySampleCount = sampleCount;
@@ -89,10 +92,10 @@ Window {
           Keys.onPressed: {
             switch (event.key) {
             case Qt.Key_PageDown:
-              delay.value -= 0.5;
+              value -= 50; // Adjusted for integer-based SpinBox
               break;
             case Qt.Key_PageUp:
-              delay.value += 0.5;
+              value += 50; // Adjusted for integer-based SpinBox
               break;
             }
           }
@@ -101,12 +104,15 @@ Window {
 
       CheckBox {
         id: toggleStatusBar
-        style: CheckBoxStyle {
-          label: Label {
-                  color: 'white';
-                  text: 'Show delay value on main window'
-                  font.pixelSize: 14
-                }
+        text: 'Show delay value on main window'
+        
+        // Style the text appearance
+        contentItem: Text {
+          text: toggleStatusBar.text
+          color: 'white'
+          font.pixelSize: 14
+          leftPadding: toggleStatusBar.indicator.width + toggleStatusBar.spacing
+          verticalAlignment: Text.AlignVCenter
         }
       } // Checkbox
     } // ColumnLayout

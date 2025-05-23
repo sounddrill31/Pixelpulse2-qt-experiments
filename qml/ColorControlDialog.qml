@@ -1,7 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import QtQuick.Layouts 1.0
 import QtQuick.Controls
-import QtQuick.Controls.Styles 1.1
+//import QtQuick.Controls.Styles 1.1
 import QtQuick.Dialogs
 import Qt5Compat.GraphicalEffects
 
@@ -9,7 +9,7 @@ Dialog {
     title: "Display settings"
     width: 300
     height: 300
-    modality: Qt.NonModal
+    //modality: Qt.NonModal
     property alias plotCheckBox: plotsCheckBox
     property alias sigCheckBox: signalCheckBox
     property alias sliderB: sliderBrightness
@@ -42,17 +42,20 @@ Dialog {
                 id: signalCheckBox
                 focus: true
                 checked: true
+                text: 'Time Plots'
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.topMargin: 5/100 * parent.height
-                anchors.leftMargin:15/100 * parent.width
-                style: CheckBoxStyle {
-                    label: Text {
-                        color: "white"
-                        text: 'Time Plots'
-                        font.pixelSize: 14
-                    }
+                anchors.leftMargin: 15/100 * parent.width
+
+                contentItem: Text {
+                    text: signalCheckBox.text
+                    color: "white"
+                    font.pixelSize: 14
+                    leftPadding: signalCheckBox.indicator.width + signalCheckBox.spacing
+                    verticalAlignment: Text.AlignVCenter
                 }
+
                 onClicked: {
                     sliderContrast.valueHasChanged(signalCheckBox);
                     sliderPhosphorRender.valueHasChanged(signalCheckBox);
@@ -60,20 +63,23 @@ Dialog {
 
                 }
             }
+
             CheckBox {
                 id: plotsCheckBox
                 focus: true
                 checked: xyPane.visible ? true : false
+                text: 'XY Plots'
                 anchors.top: parent.top
                 anchors.left: signalCheckBox.right
                 anchors.topMargin: 5/100 * parent.height
                 anchors.leftMargin: 30
-                style: CheckBoxStyle {
-                    label: Text {
-                        color: "white"
-                        text: 'XY Plots'
-                        font.pixelSize: 14
-                    }
+
+                contentItem: Text {
+                    text: plotsCheckBox.text
+                    color: "white"
+                    font.pixelSize: 14
+                    leftPadding: plotsCheckBox.indicator.width + plotsCheckBox.spacing
+                    verticalAlignment: Text.AlignVCenter
                 }
                 onClicked: {
                     sliderContrast.valueHasChanged(plotsCheckBox);
@@ -100,15 +106,38 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.0
-                minimumValue: 0.0
-                maximumValue: 1.0
+                from: 0.0
+                to: 1.0
                 stepSize: 0.01
                 width: 70/100 * parent.width
-                activeFocusOnPress: true
-                activeFocusOnTab: true
-                updateValueWhileDragging: true
-                property real factor;
+
+                property real factor
                 property real oldValue: 0.0
+
+                background: Rectangle {
+                    x: sliderBrightness.leftPadding
+                    y: sliderBrightness.topPadding + sliderBrightness.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    width: sliderBrightness.availableWidth
+                    height: implicitHeight
+                    radius: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                }
+
+                handle: Rectangle {
+                    x: sliderBrightness.leftPadding + sliderBrightness.visualPosition * (sliderBrightness.availableWidth - width)
+                    y: sliderBrightness.topPadding + sliderBrightness.availableHeight / 2 - height / 2
+                    implicitWidth: 20
+                    implicitHeight: 20
+                    radius: 8
+                    color: sliderBrightness.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                }
 
                 function valueHasChanged(obj){
                     factor = (sliderBrightness.value)
@@ -129,7 +158,6 @@ Dialog {
                         oldValue = value
                     }
                 }
-                style: StyleSlider { }
                 onValueChanged: valueHasChanged(sliderBrightness)
 
             }
@@ -144,49 +172,71 @@ Dialog {
                 anchors.left: signalCheckBox.left
                 anchors.topMargin: 5/100 * parent.height
             }
-            Slider {
-                id: sliderContrast
-                anchors.top: contrastLabel.bottom
-                anchors.topMargin: 1/100 * parent.height
-                anchors.left: signalCheckBox.left
-                value: 0.0
-                minimumValue: 0.0
-                focus: true
-                maximumValue: 1.0
-                stepSize: 0.01
-                width: 70/100 * parent.width
-                activeFocusOnTab: true
-                activeFocusOnPress: true
-                updateValueWhileDragging: true
-                property real factor;
-                property real oldValue: 0.0;
-                property color plotC: '#0c0c0c'
-                property color gridC: '#222'
+        Slider {
+            id: sliderContrast
+            anchors.top: contrastLabel.bottom
+            anchors.topMargin: 1/100 * parent.height
+            anchors.left: signalCheckBox.left
+            value: 0.0
+            from: 0.0
+            focus: true
+            to: 1.0
+            stepSize: 0.01
+            width: 70/100 * parent.width
 
-                function valueHasChanged(obj){
-                    factor = (sliderContrast.value)
-                    var rPlot = plotC.r - (100 * factor) / 255
-                    var rAxes = gridC.r + (100 * factor) / 255
+            property real factor
+            property real oldValue: 0.0
+            property color plotC: '#0c0c0c'
+            property color gridC: '#222'
 
-                    if (plotsCheckBox.checked && (obj !== signalCheckBox)) {
-                        parent.intermPlotAxes = Qt.rgba(rAxes, rAxes, rAxes, 1.0)
-                        parent.intermPlotColor = Qt.rgba(rPlot, rPlot,  rPlot, 1.0)
-                        if (factor === 1.0) {parent.intermPlotAxes = '#fdfdfd'}
-                    }
-                    if (signalCheckBox.checked && (obj !== plotsCheckBox)){
-                        parent.intermSignalAxes = Qt.rgba(rAxes, rAxes, rAxes, 1.0)
-                        parent.intermSignalColor = Qt.rgba(rPlot, rPlot,  rPlot, 1.0)
-                        if (factor === 1.0) {parent.intermSignalAxes = '#fdfdfd' }
-                    }
-                    if(signalCheckBox.checked && plotsCheckBox.checked){
-                        oldValue = value
-                    }
-                    /* Check for value updates in brightness slider */
-                    sliderBrightness.valueHasChanged(sliderContrast)
+            background: Rectangle {
+                x: sliderContrast.leftPadding
+                y: sliderContrast.topPadding + sliderContrast.availableHeight / 2 - height / 2
+                implicitWidth: 200
+                implicitHeight: 8
+                width: sliderContrast.availableWidth
+                height: implicitHeight
+                radius: 8
+                gradient: Gradient {
+                    GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                    GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
                 }
-                style: StyleSlider { }
-                onValueChanged: sliderContrast.valueHasChanged(sliderContrast)
             }
+
+            handle: Rectangle {
+                x: sliderContrast.leftPadding + sliderContrast.visualPosition * (sliderContrast.availableWidth - width)
+                y: sliderContrast.topPadding + sliderContrast.availableHeight / 2 - height / 2
+                implicitWidth: 20
+                implicitHeight: 20
+                radius: 8
+                color: sliderContrast.pressed ? "#858484" : "#4E4E4E"
+                border.color: "#4E4E4E"
+                border.width: 2
+            }
+
+            function valueHasChanged(obj){
+                factor = (sliderContrast.value)
+                var rPlot = plotC.r - (100 * factor) / 255
+                var rAxes = gridC.r + (100 * factor) / 255
+
+                if (plotsCheckBox.checked && (obj !== signalCheckBox)) {
+                    parent.intermPlotAxes = Qt.rgba(rAxes, rAxes, rAxes, 1.0)
+                    parent.intermPlotColor = Qt.rgba(rPlot, rPlot,  rPlot, 1.0)
+                    if (factor === 1.0) {parent.intermPlotAxes = '#fdfdfd'}
+                }
+                if (signalCheckBox.checked && (obj !== plotsCheckBox)){
+                    parent.intermSignalAxes = Qt.rgba(rAxes, rAxes, rAxes, 1.0)
+                    parent.intermSignalColor = Qt.rgba(rPlot, rPlot,  rPlot, 1.0)
+                    if (factor === 1.0) {parent.intermSignalAxes = '#fdfdfd' }
+                }
+                if(signalCheckBox.checked && plotsCheckBox.checked){
+                    oldValue = value
+                }
+                /* Check for value updates in brightness slider */
+                sliderBrightness.valueHasChanged(sliderContrast)
+            }
+            onValueChanged: sliderContrast.valueHasChanged(sliderContrast)
+        }
             Text{
                 id: phosphorLabel
                 visible: true
@@ -203,17 +253,40 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.0
-                minimumValue: 0.0
+                from: 0.0
                 focus: true
-                maximumValue: 1.0
+                to: 1.0
                 stepSize: 0.01
                 width: 70/100 * parent.width
-                activeFocusOnTab: true
-                activeFocusOnPress: true
-                updateValueWhileDragging: true
-                property real factor;
-                property color dotCurrent: Qt.rgba(0.2, 0.2, 0.03, 1);
-                property color dotVoltage: Qt.rgba(0.03, 0.3, 0.03, 1);
+
+                property real factor
+                property color dotCurrent: Qt.rgba(0.2, 0.2, 0.03, 1)
+                property color dotVoltage: Qt.rgba(0.03, 0.3, 0.03, 1)
+
+                background: Rectangle {
+                    x: sliderPhosphorRender.leftPadding
+                    y: sliderPhosphorRender.topPadding + sliderPhosphorRender.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    width: sliderPhosphorRender.availableWidth
+                    height: implicitHeight
+                    radius: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                }
+
+                handle: Rectangle {
+                    x: sliderPhosphorRender.leftPadding + sliderPhosphorRender.visualPosition * (sliderPhosphorRender.availableWidth - width)
+                    y: sliderPhosphorRender.topPadding + sliderPhosphorRender.availableHeight / 2 - height / 2
+                    implicitWidth: 20
+                    implicitHeight: 20
+                    radius: 8
+                    color: sliderPhosphorRender.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                }
 
                 function valueHasChanged(obj){
                     factor = (sliderPhosphorRender.value)
@@ -233,7 +306,6 @@ Dialog {
                         window.dotSignalVoltage = Qt.rgba(rVoltage, gVoltage,  bVoltage, 1.0)
                     }
                 }
-                style: StyleSlider { }
                 onValueChanged: sliderPhosphorRender.valueHasChanged(sliderPhosphorRender)
             }
             Text{
@@ -252,15 +324,38 @@ Dialog {
                 anchors.topMargin: 1/100 * parent.height
                 anchors.left: signalCheckBox.left
                 value: 0.1
-                minimumValue: 0.1
+                from: 0.1
                 focus: true
-                maximumValue: 1.0
+                to: 1.0
                 stepSize: 0.1
                 width: 70/100 * parent.width
-                activeFocusOnTab: true
-                activeFocusOnPress: true
-                updateValueWhileDragging: true
-                property real factor;
+
+                property real factor
+
+                background: Rectangle {
+                    x: sliderDotSize.leftPadding
+                    y: sliderDotSize.topPadding + sliderDotSize.availableHeight / 2 - height / 2
+                    implicitWidth: 200
+                    implicitHeight: 8
+                    width: sliderDotSize.availableWidth
+                    height: implicitHeight
+                    radius: 8
+                    gradient: Gradient {
+                        GradientStop { position: 1.0; color: Qt.rgba(1,1,1,0.08)}
+                        GradientStop { position: 0.0; color: Qt.rgba(0,0,0,0.0)}
+                    }
+                }
+
+                handle: Rectangle {
+                    x: sliderDotSize.leftPadding + sliderDotSize.visualPosition * (sliderDotSize.availableWidth - width)
+                    y: sliderDotSize.topPadding + sliderDotSize.availableHeight / 2 - height / 2
+                    implicitWidth: 20
+                    implicitHeight: 20
+                    radius: 8
+                    color: sliderDotSize.pressed ? "#858484" : "#4E4E4E"
+                    border.color: "#4E4E4E"
+                    border.width: 2
+                }
 
                 function valueHasChanged(obj){
                     factor = sliderDotSize.value
@@ -271,7 +366,6 @@ Dialog {
                         window.dotSizeSignal = factor
                     }
                 }
-                style: StyleSlider { }
                 onValueChanged: sliderDotSize.valueHasChanged(sliderDotSize)
             }
         }
