@@ -216,7 +216,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Test AppImage
-      timeout-minutes: 1
       run: |
         chmod +x Pixelpulse2*.AppImage
-        QT_QPA_PLATFORM="vnc" ./Pixelpulse2*.AppImage
+        timeout 1m xvfb-run -a -- ./Pixelpulse2*.AppImage --appimage-extract-and-run
